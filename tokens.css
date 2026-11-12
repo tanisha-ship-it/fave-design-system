@@ -1,0 +1,188 @@
+/* Fave design system — foundations v0.1 (colour, type, buttons)
+   Tier 1: primitives  (--indigo-04)          raw values, never used directly in a screen
+   Tier 2: semantic    (--color-text-primary) what a colour is FOR; screens use these
+   Tier 3: component   (--button-*)           only where a component needs its own decisions
+   Sources: SplurgeKit (Figma) reconciled with the shipped app. See CHANGES.md. */
+
+@font-face { font-family: "Phudu"; font-weight: 400; src: url("fonts/Phudu-Regular.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Phudu"; font-weight: 500; src: url("fonts/Phudu-Medium.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Phudu"; font-weight: 600; src: url("fonts/Phudu-SemiBold.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Apfel Grotezk"; font-weight: 400; src: url("fonts/ApfelGrotezk-Regular.otf") format("opentype"); font-display: swap; }
+@font-face { font-family: "Apfel Grotezk"; font-weight: 500; src: url("fonts/ApfelGrotezk-Mittel.otf") format("opentype"); font-display: swap; }
+@font-face { font-family: "Apfel Grotezk"; font-weight: 600; src: url("fonts/ApfelGrotezk-Satt.otf") format("opentype"); font-display: swap; }
+
+:root {
+  /* ---------- Tier 1: primitives ---------- */
+  --indigo-01: #F5F6FF;
+  --indigo-02: #C4D0FF;
+  --indigo-03: #A0A9FA;
+  --indigo-04: #5E6DFF;
+  --indigo-05: #3141D7;
+  --indigo-06: #1928B3;
+
+  --teal-01: #ECFDF7;
+  --teal-02: #A6F4D7;
+  --teal-03: #6DE8C3;
+  --teal-04: #0FBAB0;
+  --teal-05: #0E938B;
+  --teal-06: #022C2C;
+
+  --red-01: #FFF1F1;
+  --red-02: #FFC8C8;
+  --red-03: #FE6161;
+  --red-04: #CB3030;
+
+  --orange-01: #FFF1E6;
+  --orange-02: #FF9260;
+  --orange-03: #EB7214;
+  --orange-04: #DB7342;
+
+  --yellow-01: #FFBC3A;
+
+  --peach-01: #FFFBF6;
+  --peach-02: #FFF6EC;
+  --peach-03: #FFEDD9;
+
+  --grey-01: #F7F7F7;
+  --grey-02: #EEEEEE;
+  --grey-03: #DADADA;
+  --grey-04: #B0B0B0;
+  --grey-05: #6D6D6D;
+  --grey-06: #4F4F4F;
+  --grey-07: #3D3D3D;
+  --grey-08: #1B1B1B;
+
+  --white: #FFFFFF;
+  --black: #000000;
+
+  /* ---------- Tier 2: semantic colour ---------- */
+  --color-text-primary: var(--grey-08);
+  --color-text-secondary: var(--grey-05);
+  --color-text-tertiary: var(--grey-04);      /* placeholders and disabled only: too light for body copy */
+  --color-text-on-action: var(--white);
+  --color-text-action: var(--indigo-04);
+  --color-text-success: var(--teal-05);
+  --color-text-danger: var(--red-03);
+  --color-text-warning: var(--orange-03);
+
+  --color-surface-default: var(--white);
+  --color-surface-subtle: var(--grey-01);
+  --color-surface-warm: var(--peach-01);
+  --color-surface-action-subtle: var(--indigo-01);
+  --color-surface-success-subtle: var(--teal-01);
+  --color-surface-danger-subtle: var(--red-01);
+  --color-surface-warning-subtle: var(--orange-01);
+
+  --color-border-default: var(--grey-02);
+  --color-border-strong: var(--grey-03);
+  --color-border-action: var(--indigo-04);
+  --color-border-danger: var(--red-03);
+
+  --color-action-default: var(--indigo-04);
+  --color-action-ledge: var(--indigo-05);
+  --color-danger-default: var(--red-03);
+  --color-danger-ledge: var(--red-04);
+  --color-success-default: var(--teal-04);
+  --color-warning-default: var(--orange-02);
+  --color-warning-ledge: var(--orange-04);
+  --color-warm-ledge: var(--peach-03);
+  --color-disabled-default: var(--grey-04);
+  --color-disabled-ledge: var(--grey-05);
+
+  /* ---------- Type ---------- */
+  --font-display: "Phudu", system-ui, sans-serif;        /* Display, Heading, Label */
+  --font-body: "Apfel Grotezk", system-ui, sans-serif;   /* Body */
+  --line-height-display: 1.2;
+  --line-height-body: 1.4;
+
+  /* ---------- Ledge: the hard 3px shadow under cards and buttons ---------- */
+  --ledge-size: 3px;
+  --ledge-neutral: 0 var(--ledge-size) 0 0 var(--color-border-default);
+  --ledge-action: 0 var(--ledge-size) 0 0 var(--color-action-ledge);
+  --ledge-action-subtle: 0 var(--ledge-size) 0 0 var(--color-border-action);
+  --ledge-danger: 0 var(--ledge-size) 0 0 var(--color-danger-ledge);
+  --ledge-danger-subtle: 0 var(--ledge-size) 0 0 var(--color-border-danger);
+  --ledge-disabled: 0 var(--ledge-size) 0 0 var(--color-disabled-ledge);
+  --ledge-warm: 0 var(--ledge-size) 0 0 var(--color-warm-ledge);
+
+  /* ---------- Tier 3: button ---------- */
+  --button-lg-height: 54px;
+  --button-lg-padding: 0 24px;
+  --button-lg-radius: 12px;
+  --button-sm-height: 32px;
+  --button-sm-padding: 0 12px;
+  --button-sm-radius: 8px;
+  --button-gap: 4px;
+  --button-press-duration: 32ms;
+}
+
+/* ---------- Type styles: Category / Size / Weight ---------- */
+.type-display-lg { font: 600 32px/var(--line-height-display) var(--font-display); }
+.type-display-md { font: 600 28px/var(--line-height-display) var(--font-display); }
+
+.type-heading-lg { font: 600 24px/var(--line-height-display) var(--font-display); }
+.type-heading-md { font: 600 20px/var(--line-height-display) var(--font-display); }
+.type-heading-sm { font: 600 18px/var(--line-height-display) var(--font-display); }
+
+.type-label-xl-medium   { font: 500 18px/var(--line-height-display) var(--font-display); }
+.type-label-lg-regular  { font: 400 16px/var(--line-height-display) var(--font-display); }
+.type-label-lg-medium   { font: 500 16px/var(--line-height-display) var(--font-display); }
+.type-label-lg-semibold { font: 600 16px/var(--line-height-display) var(--font-display); }
+.type-label-md-medium   { font: 500 14px/var(--line-height-display) var(--font-display); }
+.type-label-sm-medium   { font: 500 12px/var(--line-height-display) var(--font-display); }
+
+.type-title-lg         { font: 700 28px/var(--line-height-display) var(--font-body); }
+.type-body-xl-regular  { font: 400 18px/var(--line-height-body) var(--font-body); }
+.type-body-xl-medium   { font: 500 18px/var(--line-height-body) var(--font-body); }
+.type-body-lg-regular  { font: 400 16px/var(--line-height-body) var(--font-body); }
+.type-body-lg-medium   { font: 500 16px/var(--line-height-body) var(--font-body); }
+.type-body-lg-semibold { font: 600 16px/var(--line-height-body) var(--font-body); }
+.type-body-md-regular  { font: 400 14px/var(--line-height-body) var(--font-body); }
+.type-body-md-medium   { font: 500 14px/var(--line-height-body) var(--font-body); }
+.type-body-md-semibold { font: 600 14px/var(--line-height-body) var(--font-body); }
+.type-body-sm-regular  { font: 400 12px/var(--line-height-body) var(--font-body); }
+
+[class^="type-"], [class*=" type-"] { letter-spacing: 0; }
+
+/* ---------- Button: Style x Tone x Size ----------
+   <button class="btn btn--primary">            style: primary | secondary | tertiary
+   <button class="btn btn--secondary btn--destructive btn--sm">
+   tone: default | destructive | neutral (tertiary only)     size: large (default) | btn--sm
+   states: :active = pressed, [disabled], .is-loading */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--button-gap);
+  box-sizing: border-box; height: var(--button-lg-height); padding: var(--button-lg-padding);
+  border: 1px solid transparent; border-radius: var(--button-lg-radius);
+  font: 500 18px/var(--line-height-display) var(--font-display); letter-spacing: 0;
+  cursor: pointer; user-select: none; position: relative; overflow: hidden;
+  transition: transform var(--button-press-duration) ease-out, box-shadow var(--button-press-duration) ease-out;
+}
+.btn--sm { height: var(--button-sm-height); padding: var(--button-sm-padding); border-radius: var(--button-sm-radius); font-size: 14px; }
+.btn--block { display: flex; width: 100%; }
+.btn .btn__icon { width: 5px; height: 10px; flex: none; }
+
+.btn--primary { background: var(--color-action-default); border-color: var(--color-action-ledge); box-shadow: var(--ledge-action); color: var(--color-text-on-action); }
+.btn--primary.btn--destructive { background: var(--color-danger-default); border-color: var(--color-danger-ledge); box-shadow: var(--ledge-danger); }
+
+.btn--secondary { background: var(--color-surface-action-subtle); border-color: var(--color-border-action); box-shadow: var(--ledge-action-subtle); color: var(--color-text-action); }
+.btn--secondary.btn--destructive { background: var(--color-surface-danger-subtle); border-color: var(--color-border-danger); box-shadow: var(--ledge-danger-subtle); color: var(--color-text-danger); }
+
+.btn--tertiary { background: transparent; color: var(--color-text-action); }
+.btn--tertiary.btn--destructive { color: var(--color-text-danger); }
+.btn--tertiary.btn--neutral { color: var(--grey-07); }
+
+/* pressed: the button drops into its ledge */
+.btn--primary:active:not([disabled]), .btn--secondary:active:not([disabled]), .btn--primary.is-pressed, .btn--secondary.is-pressed { transform: translateY(var(--ledge-size)); box-shadow: none; }
+.btn--tertiary:active:not([disabled]), .btn--tertiary.is-pressed { opacity: 0.6; }
+
+/* disabled */
+.btn[disabled] { cursor: not-allowed; }
+.btn--primary[disabled] { background: var(--color-disabled-default); border-color: var(--color-disabled-ledge); box-shadow: var(--ledge-disabled); color: var(--white); }
+.btn--secondary[disabled] { background: var(--color-surface-subtle); border-color: var(--color-border-strong); box-shadow: 0 var(--ledge-size) 0 0 var(--color-border-strong); color: var(--color-text-tertiary); }
+.btn--tertiary[disabled] { color: var(--color-text-tertiary); }
+
+/* loading: a light sweep crosses the button while its action runs (1s loop) */
+.btn.is-loading { pointer-events: none; }
+.btn.is-loading::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 35%, rgba(255, 255, 255, 0.45) 50%, transparent 65%); transform: translateX(-100%); animation: btn-sweep 1s linear infinite; }
+@keyframes btn-sweep { to { transform: translateX(100%); } }
+@media (prefers-reduced-motion: reduce) { .btn.is-loading::after { animation: none; transform: none; opacity: 0.5; } .btn { transition: none; } }

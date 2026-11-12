@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Play with mathematical functions and see them move." />
+    <title>Folio — Equation Playground</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23ffcd5b'/%3E%3Ctext x='11' y='23' font-size='20'%3Eƒ%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Folio home">
+          <span class="brand-mark" aria-hidden="true">ƒ</span>
+          <span>Folio</span>
+        </a>
+        <div class="topbar-center">
+          <span class="eyebrow">Equation playground</span>
+          <span class="live-dot">Live</span>
+        </div>
+        <button class="icon-button" id="themeButton" type="button" aria-label="Toggle contrast">◐</button>
+      </header>
+
+      <section class="workspace">
+        <aside class="control-panel">
+          <div class="intro">
+            <p class="eyebrow">Function 01</p>
+            <h1>Shape an idea.</h1>
+            <p>Adjust the variables and watch the equation come alive.</p>
+          </div>
+
+          <div class="preset-wrap">
+            <label for="presetSelect">Starting shape</label>
+            <select id="presetSelect">
+              <option value="wave">Soft wave</option>
+              <option value="ripple">Fading ripple</option>
+              <option value="parabola">Parabola</option>
+              <option value="heartbeat">Heartbeat</option>
+            </select>
+          </div>
+
+          <div class="equation-wrap">
+            <label for="equationInput">Equation</label>
+            <div class="equation-field" id="equationField">
+              <span>y =</span>
+              <input id="equationInput" value="a * sin(b * x) + c" spellcheck="false" autocomplete="off" />
+            </div>
+            <p class="input-note" id="inputNote">Try sin, cos, tan, abs, sqrt, exp, log and ^</p>
+          </div>
+
+          <div class="variables-head">
+            <span>Variables</span>
+            <button id="randomizeButton" type="button">Shuffle ↗</button>
+          </div>
+          <div class="variables" id="variables"></div>
+
+          <div class="panel-footer">
+            <button class="primary-button" id="resetButton" type="button">Reset view</button>
+            <p><kbd>Drag</kbd> to move · <kbd>Scroll</kbd> to zoom</p>
+          </div>
+        </aside>
+
+        <section class="graph-panel" aria-label="Interactive equation graph">
+          <canvas id="graphCanvas"></canvas>
+          <div class="graph-overlay graph-top">
+            <span id="equationLabel">y = a · sin(bx) + c</span>
+            <span id="zoomLabel">100%</span>
+          </div>
+          <div class="graph-overlay graph-bottom">
+            <span id="cursorLabel">x 0.00&nbsp;&nbsp; y 0.00</span>
+            <span>Wheel to explore</span>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

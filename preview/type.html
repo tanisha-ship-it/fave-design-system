@@ -1,0 +1,65 @@
+<!-- @dsCard group="Type" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fave Type</title>
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  body { margin: 0; padding: 32px 24px 48px; background: var(--color-surface-warm); color: var(--color-text-primary); font: 400 14px/1.4 var(--font-body); }
+  main { max-width: 960px; margin: 0 auto; }
+  h1 { font: 600 32px/1.2 var(--font-display); margin: 0 0 4px; }
+  h2 { font: 600 20px/1.2 var(--font-display); margin: 40px 0 4px; }
+  p.lede { color: var(--color-text-secondary); margin: 0 0 16px; max-width: 62ch; }
+  .card { background: var(--white); border: 1px solid var(--color-border-default); border-radius: 16px; box-shadow: var(--ledge-neutral); overflow: hidden; }
+  .row { display: grid; grid-template-columns: 1fr 220px; gap: 16px; align-items: baseline; padding: 14px 16px; border-bottom: 1px solid var(--color-border-default); }
+  .row:last-child { border-bottom: 0; }
+  .meta { font: 400 12px/1.4 ui-monospace, monospace; color: var(--color-text-secondary); text-align: right; }
+  .meta b { display: block; font: 500 12px/1.4 var(--font-display); color: var(--color-text-primary); }
+  .sample { min-width: 0; overflow-wrap: anywhere; }
+  @media (max-width: 640px) { .row { grid-template-columns: 1fr; gap: 4px; } .meta { text-align: left; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Type</h1>
+  <p class="lede">Four categories. Display, Heading and Label are set in Phudu at 120% line height. Body is set in Apfel Grotezk at 140%. Letter spacing is always 0. Names follow Category / Size / Weight; Display and Heading have one weight, so it is left off.</p>
+  <div id="out"></div>
+</main>
+<script>
+const G = [
+  ["Display", "Hero numbers and moments. Rare.", [
+    ["Display/Large", "type-display-lg", "Phudu SemiBold 32", "₹12,450 settled"],
+    ["Display/Medium", "type-display-md", "Phudu SemiBold 28", "Your home is ready"],
+  ]],
+  ["Heading", "Screen and section titles.", [
+    ["Heading/Large", "type-heading-lg", "Phudu SemiBold 24", "Split with your flatmates"],
+    ["Heading/Medium", "type-heading-md", "Phudu SemiBold 20", "Monthly payments"],
+    ["Heading/Small", "type-heading-sm", "Phudu SemiBold 18", "Shared bills"],
+  ]],
+  ["Label", "Buttons, tabs, chips, card titles, anything tappable or tag-like.", [
+    ["Label/XLarge/Medium", "type-label-xl-medium", "Phudu Medium 18", "Continue"],
+    ["Label/Large/SemiBold", "type-label-lg-semibold", "Phudu SemiBold 16", "Electricity bill"],
+    ["Label/Large/Medium", "type-label-lg-medium", "Phudu Medium 16", "Add people"],
+    ["Label/Large/Regular", "type-label-lg-regular", "Phudu Regular 16", "₹10,35,000"],
+    ["Label/Medium/Medium", "type-label-md-medium", "Phudu Medium 14", "Settle up"],
+    ["Label/Small/Medium", "type-label-sm-medium", "Phudu Medium 12", "Due in 3 days"],
+  ]],
+  ["Body", "Everything you read.", [
+    ["Body/Large/SemiBold", "type-body-lg-semibold", "Apfel Grotezk SemiBold 16", "Rahul paid ₹2,400 for groceries"],
+    ["Body/Large/Medium", "type-body-lg-medium", "Apfel Grotezk Medium 16", "Rahul paid ₹2,400 for groceries"],
+    ["Body/Large/Regular", "type-body-lg-regular", "Apfel Grotezk Regular 16", "Rahul paid ₹2,400 for groceries"],
+    ["Body/Medium/SemiBold", "type-body-md-semibold", "Apfel Grotezk SemiBold 14", "You owe ₹800 across two splits"],
+    ["Body/Medium/Medium", "type-body-md-medium", "Apfel Grotezk Medium 14", "You owe ₹800 across two splits"],
+    ["Body/Medium/Regular", "type-body-md-regular", "Apfel Grotezk Regular 14", "You owe ₹800 across two splits"],
+    ["Body/Small/Regular", "type-body-sm-regular", "Apfel Grotezk Regular 12", "Payments are secured by UPI"],
+  ]],
+];
+document.getElementById("out").innerHTML = G.map(([name, note, rows]) =>
+  `<h2>${name}</h2><p class="lede">${note}</p><div class="card">` +
+  rows.map(([n, c, spec, s]) => `<div class="row"><div class="sample ${c}">${s}</div><div class="meta"><b>${n}</b>${spec}<br>.${c}</div></div>`).join("") +
+  `</div>`).join("");
+</script>
+</body>
+</html>

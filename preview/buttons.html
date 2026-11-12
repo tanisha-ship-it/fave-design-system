@@ -1,0 +1,77 @@
+<!-- @dsCard group="Buttons" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fave Buttons</title>
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  body { margin: 0; padding: 32px 24px 48px; background: var(--color-surface-warm); color: var(--color-text-primary); font: 400 14px/1.4 var(--font-body); }
+  main { max-width: 960px; margin: 0 auto; }
+  h1 { font: 600 32px/1.2 var(--font-display); margin: 0 0 4px; }
+  h2 { font: 600 20px/1.2 var(--font-display); margin: 40px 0 4px; }
+  p.lede { color: var(--color-text-secondary); margin: 0 0 16px; max-width: 62ch; }
+  .card { background: var(--white); border: 1px solid var(--color-border-default); border-radius: 16px; box-shadow: var(--ledge-neutral); padding: 8px 16px; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; min-width: 620px; }
+  th { text-align: left; font: 500 12px/1.2 var(--font-display); color: var(--color-text-secondary); padding: 10px 12px 10px 0; }
+  td { padding: 12px 12px 15px 0; border-top: 1px solid var(--color-border-default); vertical-align: middle; }
+  td.k { font: 500 14px/1.2 var(--font-display); white-space: nowrap; }
+  .phone { max-width: 345px; display: grid; gap: 14px; }
+  dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; }
+  dt { font: 500 14px/1.4 var(--font-display); }
+  dd { margin: 0; color: var(--color-text-secondary); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Buttons</h1>
+  <p class="lede">One button, three choices: Style (how loud), Tone (what kind of action), Size. Primary and Secondary sit on a 3px ledge and drop into it when pressed. Press any of them.</p>
+
+  <h2>Style × Tone</h2>
+  <div class="card scroll"><table id="matrix"></table></div>
+
+  <h2>States</h2>
+  <div class="card scroll"><table id="states"></table></div>
+
+  <h2>Size</h2>
+  <div class="card scroll"><table id="sizes"></table></div>
+
+  <h2>In use</h2>
+  <p class="lede">Full width at the bottom of a screen or sheet. One Primary per view.</p>
+  <div class="card" style="padding:16px"><div class="phone">
+    <button class="btn btn--primary btn--block">Pay ₹2,400 <svg class="btn__icon" viewBox="0 0 5 10" fill="none"><path d="M1 1l3 4-3 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="btn btn--secondary btn--block">Split this payment</button>
+    <button class="btn btn--tertiary btn--neutral btn--block">Not now</button>
+  </div></div>
+
+  <h2>Rules</h2>
+  <div class="card" style="padding:16px"><dl>
+    <dt>Primary</dt><dd>The one action the screen exists for. Indigo fill, darker indigo border and ledge.</dd>
+    <dt>Secondary</dt><dd>A real alternative. Tinted fill, indigo border and ledge.</dd>
+    <dt>Tertiary</dt><dd>Dismiss, skip, learn more. Label only.</dd>
+    <dt>Destructive</dt><dd>Removes or cancels something the user would miss. Available in all three styles.</dd>
+    <dt>Neutral</dt><dd>Tertiary only. A quiet grey label for "not now".</dd>
+    <dt>Label</dt><dd>Large uses Label/XLarge/Medium (Phudu 18). Small uses Label/Medium/Medium (Phudu 14).</dd>
+    <dt>Icon</dt><dd>Optional trailing chevron for actions that move forward.</dd>
+  </dl></div>
+</main>
+<script>
+const chev = '<svg class="btn__icon" viewBox="0 0 5 10" fill="none"><path d="M1 1l3 4-3 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const b = (cls, label, attrs = "", icon = false) => `<button class="btn ${cls}" ${attrs}>${label}${icon ? " " + chev : ""}</button>`;
+document.getElementById("matrix").innerHTML =
+  `<tr><th></th><th>Default</th><th>Destructive</th><th>Neutral</th></tr>` +
+  [["Primary", "btn--primary"], ["Secondary", "btn--secondary"], ["Tertiary", "btn--tertiary"]].map(([n, c]) =>
+    `<tr><td class="k">${n}</td><td>${b(c, "Continue", "", true)}</td><td>${b(c + " btn--destructive", "Remove")}</td><td>${c === "btn--tertiary" ? b(c + " btn--neutral", "Not now") : '<span style="color:var(--color-text-tertiary)">not used</span>'}</td></tr>`).join("");
+document.getElementById("states").innerHTML =
+  `<tr><th></th><th>Default</th><th>Pressed</th><th>Disabled</th><th>Loading</th></tr>` +
+  [["Primary", "btn--primary"], ["Secondary", "btn--secondary"], ["Tertiary", "btn--tertiary"]].map(([n, c]) =>
+    `<tr><td class="k">${n}</td><td>${b(c, "Continue")}</td><td>${b(c + " is-pressed", "Continue")}</td><td>${b(c, "Continue", "disabled")}</td><td>${b(c + " is-loading", "Continue")}</td></tr>`).join("");
+document.getElementById("sizes").innerHTML =
+  `<tr><th></th><th>Primary</th><th>Secondary</th><th>Tertiary</th><th>Spec</th></tr>` +
+  [["Large", "", "54 high · radius 12 · 24 side padding"], ["Small", " btn--sm", "32 high · radius 8 · 12 side padding"]].map(([n, s, spec]) =>
+    `<tr><td class="k">${n}</td><td>${b("btn--primary" + s, "Continue", "", true)}</td><td>${b("btn--secondary" + s, "Continue")}</td><td>${b("btn--tertiary" + s, "Continue")}</td><td style="color:var(--color-text-secondary)">${spec}</td></tr>`).join("");
+</script>
+</body>
+</html>

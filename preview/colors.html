@@ -1,0 +1,101 @@
+<!-- @dsCard group="Colors" -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fave Colours</title>
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  body { margin: 0; padding: 32px 24px 48px; background: var(--color-surface-warm); color: var(--color-text-primary); font: 400 14px/1.4 var(--font-body); }
+  main { max-width: 960px; margin: 0 auto; }
+  h1 { font: 600 32px/1.2 var(--font-display); margin: 0 0 4px; }
+  h2 { font: 600 20px/1.2 var(--font-display); margin: 40px 0 4px; }
+  p.lede { color: var(--color-text-secondary); margin: 0 0 16px; max-width: 60ch; }
+  .ramp { display: grid; grid-template-columns: 88px repeat(6, 1fr); gap: 8px; align-items: stretch; margin-bottom: 8px; }
+  .ramp.wide { grid-template-columns: 88px repeat(8, 1fr); }
+  .ramp > .name { font: 500 14px/1.2 var(--font-display); align-self: center; }
+  .sw { border: 1px solid var(--color-border-default); border-radius: 12px; background: var(--white); overflow: hidden; min-width: 0; }
+  .sw i { display: block; height: 48px; }
+  .sw span { display: block; padding: 6px 8px 0; font: 500 12px/1.2 var(--font-display); }
+  .sw code { display: block; padding: 0 8px 8px; font: 400 11px/1.4 ui-monospace, monospace; color: var(--color-text-secondary); }
+  .sw.empty { visibility: hidden; }
+  table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--color-border-default); border-radius: 16px; overflow: hidden; box-shadow: var(--ledge-neutral); }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--color-border-default); vertical-align: middle; }
+  th { font: 500 12px/1.2 var(--font-display); color: var(--color-text-secondary); background: var(--color-surface-subtle); }
+  tr:last-child td { border-bottom: 0; }
+  td code { font: 400 12px/1.4 ui-monospace, monospace; }
+  .chip { display: inline-block; width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--color-border-strong); vertical-align: middle; }
+  .use { color: var(--color-text-secondary); }
+  .scroll { overflow-x: auto; }
+  @media (max-width: 720px) { .ramp, .ramp.wide { grid-template-columns: repeat(4, 1fr); } .ramp > .name { grid-column: 1 / -1; margin-top: 8px; } .sw.empty { display: none; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Colour</h1>
+  <p class="lede">Two tiers. Primitives are the raw palette, named by hue and step. Semantic colours say what a colour is for; screens and components use only these.</p>
+
+  <h2>Primitives</h2>
+  <p class="lede">33 colours. Steps run light to dark. 04 is the main step for indigo and teal; 03 for red and orange.</p>
+  <div id="ramps"></div>
+
+  <h2>Semantic</h2>
+  <p class="lede">26 roles. Change a mapping here and every screen follows.</p>
+  <div class="scroll"><table id="sem"><thead><tr><th></th><th>Token</th><th>Points to</th><th>Use for</th></tr></thead><tbody></tbody></table></div>
+</main>
+<script>
+const P = {
+  indigo: ["F5F6FF","C4D0FF","A0A9FA","5E6DFF","3141D7","1928B3"],
+  teal: ["ECFDF7","A6F4D7","6DE8C3","0FBAB0","0E938B","022C2C"],
+  red: ["FFF1F1","FFC8C8","FE6161","CB3030"],
+  orange: ["FFF1E6","FF9260","EB7214"],
+  yellow: ["FFBC3A"],
+  peach: ["FFFBF6","FFF6EC","FFEDD9"],
+};
+const G = ["F7F7F7","EEEEEE","DADADA","B0B0B0","6D6D6D","4F4F4F","3D3D3D","1B1B1B"];
+const pad = n => String(n).padStart(2, "0");
+const sw = (name, hex) => `<div class="sw"><i style="background:#${hex}"></i><span>${name}</span><code>#${hex}</code></div>`;
+let h = "";
+for (const [k, v] of Object.entries(P)) {
+  h += `<div class="ramp"><div class="name">${k}</div>` + v.map((x, i) => sw(pad(i + 1), x)).join("") + '<div class="sw empty"></div>'.repeat(6 - v.length) + "</div>";
+}
+h += `<div class="ramp wide"><div class="name">grey</div>` + G.map((x, i) => sw(pad(i + 1), x)).join("") + "</div>";
+h += `<div class="ramp"><div class="name">base</div>` + sw("white", "FFFFFF") + sw("black", "000000") + '<div class="sw empty"></div>'.repeat(4) + "</div>";
+document.getElementById("ramps").innerHTML = h;
+
+const S = [
+  ["color/text/primary","grey/08","Headings and body copy"],
+  ["color/text/secondary","grey/05","Supporting copy, captions"],
+  ["color/text/tertiary","grey/04","Placeholders and disabled text only"],
+  ["color/text/on-action","white","Text on indigo or red fills"],
+  ["color/text/action","indigo/04","Links, secondary and tertiary button labels"],
+  ["color/text/success","teal/05","Positive amounts, success messages"],
+  ["color/text/danger","red/03","Errors, destructive labels"],
+  ["color/text/warning","orange/03","Warnings"],
+  ["color/surface/default","white","Cards, sheets"],
+  ["color/surface/subtle","grey/01","Inset areas, disabled fills"],
+  ["color/surface/warm","peach/01","Page background"],
+  ["color/surface/action-subtle","indigo/01","Secondary button, selected rows"],
+  ["color/surface/success-subtle","teal/01","Success banners"],
+  ["color/surface/danger-subtle","red/01","Error banners, destructive secondary"],
+  ["color/surface/warning-subtle","orange/01","Warning banners"],
+  ["color/border/default","grey/02","Card borders, dividers, card ledge"],
+  ["color/border/strong","grey/03","Input borders, pills"],
+  ["color/border/action","indigo/04","Selected state, secondary button"],
+  ["color/border/danger","red/03","Error inputs, destructive secondary"],
+  ["color/action/default","indigo/04","Primary button fill"],
+  ["color/action/ledge","indigo/05","Primary button border and ledge"],
+  ["color/danger/default","red/03","Destructive primary fill"],
+  ["color/danger/ledge","red/04","Destructive primary border and ledge"],
+  ["color/success/default","teal/04","Success icons and fills"],
+  ["color/disabled/default","grey/04","Disabled primary fill"],
+  ["color/disabled/ledge","grey/05","Disabled primary border and ledge"],
+];
+document.querySelector("#sem tbody").innerHTML = S.map(([t, p, u]) => {
+  const v = "--" + t.replaceAll("/", "-");
+  return `<tr><td><span class="chip" style="background:var(${v})"></span></td><td><code>${t}</code></td><td><code>${p}</code></td><td class="use">${u}</td></tr>`;
+}).join("");
+</script>
+</body>
+</html>
